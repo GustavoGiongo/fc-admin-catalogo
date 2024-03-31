@@ -9,19 +9,44 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.Instant;
 
-@Entity
-@Table(name ="category")
+@Entity(name = "Category")
+@Table(name = "categories")
 public class CategoryJpaEntity {
 
+    @Id
+    @Column(name = "id", nullable = false)
+    private String id;
 
-    public CategoryJpaEntity(){};
-    private CategoryJpaEntity(final String id,
-                              final String name,
-                              final String description,
-                              final boolean active,
-                              final Instant createdAt,
-                              final Instant updatedAt,
-                              final Instant deletedAt) {
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "description", length = 4000)
+    private String description;
+
+    @Column(name = "active", nullable = false)
+    private boolean active;
+
+    @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME(6)")
+    private Instant createdAt;
+
+    @Column(name = "updated_at", nullable = false, columnDefinition = "DATETIME(6)")
+    private Instant updatedAt;
+
+    @Column(name = "deleted_at", columnDefinition = "DATETIME(6)")
+    private Instant deletedAt;
+
+    public CategoryJpaEntity() {
+    }
+
+    private CategoryJpaEntity(
+            final String id,
+            final String name,
+            final String description,
+            final boolean active,
+            final Instant createdAt,
+            final Instant updatedAt,
+            final Instant deletedAt
+    ) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -31,7 +56,7 @@ public class CategoryJpaEntity {
         this.deletedAt = deletedAt;
     }
 
-    public static CategoryJpaEntity from(final Category aCategory){
+    public static CategoryJpaEntity from(final Category aCategory) {
         return new CategoryJpaEntity(
                 aCategory.getId().getValue(),
                 aCategory.getName(),
@@ -43,17 +68,18 @@ public class CategoryJpaEntity {
         );
     }
 
-    public Category toAggreagate(){
-     return Category.with(
-             CategoryID.from(getId()),
-             getName(),
-             getDescription(),
-             isActive(),
-             getCreatedAt(),
-             getUpdatedAt(),
-             getDeletedAt()
-     );
+    public Category toAggregate() {
+        return Category.with(
+                CategoryID.from(getId()),
+                getName(),
+                getDescription(),
+                isActive(),
+                getCreatedAt(),
+                getUpdatedAt(),
+                getDeletedAt()
+        );
     }
+
     public String getId() {
         return id;
     }
@@ -109,22 +135,4 @@ public class CategoryJpaEntity {
     public void setDeletedAt(Instant deletedAt) {
         this.deletedAt = deletedAt;
     }
-
-    @Id
-    private String id;
-    @Column(name ="name", nullable = false)
-    private String name;
-
-    @Column(name="description", length = 4000)
-    private String description;
-    @Column(name="active", nullable = false)
-    private boolean active;
-    @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME(6)")
-    private Instant createdAt;
-    @Column(name = "updated_AT", nullable = false, columnDefinition = "DATETIME(6)")
-
-    private Instant updatedAt;
-    @Column(name = "deleted_at", columnDefinition = "DATETIME(6)")
-    private Instant deletedAt;
-
 }

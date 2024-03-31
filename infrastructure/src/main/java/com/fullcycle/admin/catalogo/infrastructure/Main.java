@@ -17,19 +17,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("running");
-        System.setProperty(AbstractEnvironment.DEFAULT_PROFILES_PROPERTY_NAME, "test");
+        System.setProperty(AbstractEnvironment.DEFAULT_PROFILES_PROPERTY_NAME, "development");
         SpringApplication.run(WebServerConfig.class, args);
-    }
-
-    @Bean
-    public ApplicationRunner runner(CategoryRepository repository){
-        return args -> {
-            List<CategoryJpaEntity> all = repository.findAll();
-            Category filmes = Category.newCategory("Filmes", null, true);
-
-            repository.saveAndFlush(CategoryJpaEntity.from(filmes));
-
-            repository.deleteAll();;
-        };
     }
 }
