@@ -68,6 +68,8 @@ public class CategoryJpaEntity {
         );
     }
 
+
+
     public Category toAggregate() {
         return Category.with(
                 CategoryID.from(getId()),
