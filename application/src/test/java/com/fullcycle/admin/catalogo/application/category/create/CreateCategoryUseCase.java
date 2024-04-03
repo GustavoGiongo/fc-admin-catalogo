@@ -1,7 +1,6 @@
 package com.fullcycle.admin.catalogo.application.category.create;
 
 import com.fullcycle.admin.catalogo.domain.category.CategoryGateway;
-import com.fullcycle.admin.catalogo.domain.exceptions.DomainException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 
 @ExtendWith(MockitoExtension.class)
-public class CreateCategoryUseCaseTest {
+public class CreateCategoryUseCase {
 
     @InjectMocks
     private DefaultCreateCategoryUseCase useCase;
